@@ -115,9 +115,10 @@ func (c *Client) SetDeviceName(ctx context.Context, deviceID, desired string) er
 		return fmt.Errorf("encode payload: %w", err)
 	}
 
-	urlTemplate := c.baseURL + "/deviceManagement/managedDevices/{managedDevice%2Did}/setDeviceName"
+	// setDeviceName requires beta endpoint
+	urlTemplate := "https://graph.microsoft.com/beta/deviceManagement/managedDevices/{managedDeviceId}/setDeviceName"
 	pathParams := map[string]string{
-		"managedDevice%2Did": deviceID,
+		"managedDeviceId": deviceID,
 	}
 
 	req := kiota.NewRequestInformationWithMethodAndUrlTemplateAndPathParameters(
